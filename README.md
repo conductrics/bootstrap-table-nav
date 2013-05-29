@@ -38,7 +38,7 @@ There are some options you can provide:
 * **childSelector** - a jQuery selector that finds the children of the table. By default this is `tr` which is usually fine.
 * **paginationSelector** - a jQuery selector that finds the pagination component for the table. If not provided, will look for a sibling of the table with class `pagination`.
 
-There is a [simple demo here](demo/1-simple.html).
+There is a [simple demo here](https://raw.github.com/nateweiss/bootstrap-table-nav/master/demo/1-simple.html).
 
 ## TODOs
 
