@@ -10,8 +10,11 @@ do ($ = window.jQuery) ->
 			options.itemsPerPage = opts.itemsPerPage ? 10 # number of children to display per pagination page
 			options.hideWhenOnePage = opts.hideWhenOnePage ? true
 			options.currentPage = opts.initialPage ? 0
+			options.alignLastPage = opts.alignLastPage ? true
 			# wire ourselves up
 			$(options.paginationSelector).on 'click', 'li', options, onPageNav
+			# align table
+			alignTable(options)
 			# draw ourselves
 			paint(options)
 
@@ -46,6 +49,16 @@ do ($ = window.jQuery) ->
 			cssClass = if i is options.currentPage then 'active' else ''
 			markup.push "<li class='#{cssClass}'><a href='#' data-page-num='#{i}'>#{i+1}</a></li>"
 		pagination.show().empty().append "<ul>#{markup.join ''}</ul>"
+
+	alignTable = (options) ->
+		rowsToAdd = realMod(getRows(options).length, options.itemsPerPage)
+		parent = options.table.find(options.childSelector).parent()
+		numCol = $(options.table.find(options.childSelector)[0]).children().length
+		parent.append( Array(rowsToAdd+1).join('<tr><td colspan="' + numCol + '">&ensp;</td></tr>') )
+
+	realMod = (n, base) ->
+		unless (jsmod = n % base) and ((n > 0) != (base > 0)) then jsmod
+		else jsmod + base
 
 	$.extend jQuery.fn,
 		tableNav: tableNav

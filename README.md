@@ -37,6 +37,7 @@ There are some options you can provide:
 * **initialPage** - A number to indicate which page the table should show initially.
 * **childSelector** - a jQuery selector that finds the children of the table. By default this is `tr` which is usually fine.
 * **paginationSelector** - a jQuery selector that finds the pagination component for the table. If not provided, will look for a sibling of the table with class `pagination`.
+* **alignLastPage** - The default is true, which means empty rows are added to the table to ensure that the last page has the same height like the previous ones.
 
 For instance:
 ```
