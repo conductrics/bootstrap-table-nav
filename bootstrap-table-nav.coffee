@@ -11,6 +11,10 @@ do ($ = window.jQuery) ->
 			options.hideWhenOnePage = opts.hideWhenOnePage ? true
 			options.currentPage = opts.initialPage ? 0
 			options.alignLastPage = opts.alignLastPage ? true
+			options.paginationSize = opts.paginationSize ? 5
+			options.showAdditionalControls = opts.showAdditionalControls ? false
+			if numPages(options) > options.paginationSize
+				options.showAdditionalControls = true
 			# wire ourselves up
 			$(options.paginationSelector).on 'click', 'li', options, onPageNav
 			# align table
@@ -45,9 +49,14 @@ do ($ = window.jQuery) ->
 		# bail early if the table will fit on one page
 		return pagination.hide() if num is 1 and options.hideWhenOnePage
 		markup = []
-		for i in [0...num]
-			cssClass = if i is options.currentPage then 'active' else ''
-			markup.push "<li class='#{cssClass}'><a href='#' data-page-num='#{i}'>#{i+1}</a></li>"
+		if options.showAdditionalControls
+			markup.push paginationItem(options, 0, "&laquo;") if num > options.paginationSize
+			markup.push paginationItem(options, Math.max(0, options.currentPage - 1), "&lsaquo;")
+		for i in paginationRange(options, num)
+			markup.push paginationItem(options, i, i+1)
+		if options.showAdditionalControls
+			markup.push paginationItem(options, Math.min(num-1, options.currentPage + 1), "&rsaquo;")
+			markup.push paginationItem(options, num-1, "&raquo;") if num > options.paginationSize
 		pagination.show().empty().append "<ul>#{markup.join ''}</ul>"
 
 	alignTable = (options) ->
@@ -59,6 +68,20 @@ do ($ = window.jQuery) ->
 	realMod = (n, base) ->
 		unless (jsmod = n % base) and ((n > 0) != (base > 0)) then jsmod
 		else jsmod + base
+
+	paginationRange = (options, size) ->
+		if options.paginationSize >= size then [0...size]
+		else
+			start = Math.max(0, options.currentPage - Math.floor(options.paginationSize / 2) )
+			end = start + options.paginationSize
+			if end > size
+				start = start + size - end
+				end = size
+			[start...end]
+
+	paginationItem = (options, value, name) ->
+		cssClass = if value is options.currentPage then 'active' else ''
+		"<li class='#{cssClass}'><a href='#' data-page-num='#{value}'>#{name}</a></li>"
 
 	$.extend jQuery.fn,
 		tableNav: tableNav
