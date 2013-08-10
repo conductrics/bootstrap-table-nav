@@ -50,4 +50,3 @@ There is a simple demo in the 'demo' folder.
 
 * Support a simple filtering mechanism
 * Possibly add column sorting
-* Does not currently work correctly if used on multiple tables in the same page
