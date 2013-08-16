@@ -61,7 +61,7 @@
         cssClass = i === current.page ? 'active' : '';
         markup.push("<li class='" + cssClass + "'><a href='#' data-page-num='" + i + "'>" + (i + 1) + "</a></li>");
       }
-      return pagination.show().empty().append("<ul>" + (markup.join('')) + "</ul>");
+      return pagination.show().empty().append("<ul class='pagination'>" + (markup.join('')) + "</ul>");
     };
     return $.extend(jQuery.fn, {
       tableNav: tableNav
