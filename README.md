@@ -37,6 +37,9 @@ There are some options you can provide:
 * **initialPage** - A number to indicate which page the table should show initially.
 * **childSelector** - a jQuery selector that finds the children of the table. By default this is `tr` which is usually fine.
 * **paginationSelector** - a jQuery selector that finds the pagination component for the table. If not provided, will look for a sibling of the table with class `pagination`.
+* **alignLastPage** - The default is true, which means empty rows are added to the table to ensure that the last page has the same height like the previous ones.
+* **paginationSize** - a number which indicates how many elements are shown in the pagination. The default is 5. The shown range will adjust to the current page. In addition the following buttons are added: 'first page', 'previous page', 'next page', 'last page'. These buttons are not shown if all page element can be displayed.
+* **showAdditionalControls** - Shows the 'previous page' and 'next page' button even if all page elements can be displayed. The default is false.
 
 For instance:
 ```
@@ -50,4 +53,3 @@ There is a simple demo in the 'demo' folder.
 
 * Support a simple filtering mechanism
 * Possibly add column sorting
-* Does not currently work correctly if used on multiple tables in the same page
