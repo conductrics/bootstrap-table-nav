@@ -60,7 +60,7 @@ do ($ = window.jQuery) ->
 		pagination.show().empty().append "<ul>#{markup.join ''}</ul>"
 
 	alignTable = (options) ->
-		rowsToAdd = realMod(getRows(options).length, options.itemsPerPage)
+		rowsToAdd = options.itemsPerPage - realMod(getRows(options).length, options.itemsPerPage)
 		parent = options.table.find(options.childSelector).parent()
 		numCol = $(options.table.find(options.childSelector)[0]).children().length
 		parent.append( Array(rowsToAdd+1).join('<tr><td colspan="' + numCol + '">&ensp;</td></tr>') )

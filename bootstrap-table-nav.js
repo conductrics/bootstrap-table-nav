@@ -77,11 +77,11 @@
           markup.push(paginationItem(options, num - 1, "&raquo;"));
         }
       }
-      return pagination.show().empty().append("<ul class='pagination'>" + (markup.join('')) + "</ul>");
+      return pagination.show().empty().append("<ul>" + (markup.join('')) + "</ul>");
     };
     alignTable = function(options) {
       var numCol, parent, rowsToAdd;
-      rowsToAdd = realMod(getRows(options).length, options.itemsPerPage);
+      rowsToAdd = options.itemsPerPage - realMod(getRows(options).length, options.itemsPerPage);
       parent = options.table.find(options.childSelector).parent();
       numCol = $(options.table.find(options.childSelector)[0]).children().length;
       return parent.append(Array(rowsToAdd + 1).join('<tr><td colspan="' + numCol + '">&ensp;</td></tr>'));
