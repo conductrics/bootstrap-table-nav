@@ -53,3 +53,5 @@ There is a simple demo in the 'demo' folder.
 
 * Support a simple filtering mechanism
 * Possibly add column sorting
+
+LICENSE: MIT
