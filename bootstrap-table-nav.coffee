@@ -18,7 +18,8 @@ do ($ = window.jQuery) ->
 			# wire ourselves up
 			$(options.paginationSelector).on 'click', 'li', options, onPageNav
 			# align table
-			alignTable(options)
+			if (options.alignLastPage)
+				alignTable(options)
 			# draw ourselves
 			paint(options)
 
@@ -63,7 +64,10 @@ do ($ = window.jQuery) ->
 		rowsToAdd = options.itemsPerPage - realMod(getRows(options).length, options.itemsPerPage)
 		parent = options.table.find(options.childSelector).parent()
 		numCol = $(options.table.find(options.childSelector)[0]).children().length
-		parent.append( Array(rowsToAdd+1).join('<tr><td colspan="' + numCol + '">&ensp;</td></tr>') )
+		rowSelector = ''
+		if (options.childSelector != 'tr')
+			rowSelector = ' class="' + options.childSelector.substring(1) + '"'
+		parent.append( Array(rowsToAdd+1).join('<tr' + rowSelector + '><td colspan="' + numCol + '">&ensp;</td></tr>') )
 
 	realMod = (n, base) ->
 		unless (jsmod = n % base) and ((n > 0) != (base > 0)) then jsmod
